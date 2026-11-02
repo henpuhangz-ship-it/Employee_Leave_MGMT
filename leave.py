@@ -32,6 +32,13 @@ def apply_leave():
     if leave_days <= 0:
         print("Leave days must be more than zero!")
         return
+
+    reason = input("Enter reason for leave: ")
+
+    if leave_days > 5:
+        status = "Manager Approval Required"
+    else:
+        status = "Leave Processed"
     
     leaves = load_leaves()
     max_id = max(
@@ -42,8 +49,9 @@ def apply_leave():
         "leave_id": leave_id,
         "employee_id":employee_id,
         "employee_name": employee_name,
+        "reason": reason,
         "leave_days": leave_days,
-        "status": "Pending"
+        "status": status
     }
 
     leaves.append(leave_request)
@@ -71,7 +79,44 @@ def view_leaves():
 
 
 def approve_leave():
-    pass
+    leaves = load_leaves()
+
+    pending_requests = [
+        (i, leave)
+        for i, leave in enumerate(leaves)
+        if leave["status"]=="Manager Approval Required"
+    ]
+
+    if not pending_requests:
+        print("\n No Manager Approvals Pending!")
+        return
+
+    print("\n===Manager Approval Requests===")
+    for i, leave in pending_requests:
+        print(
+            f"Leave ID: {leave['leave_id']}"
+            f" {leave['employee_name']} - "
+            f"{leave['leave_days']} days"
+        )
+
+    choice = input("Enter Leave ID to approve: ").strip()
+
+    selected_leave = next(
+        (leave for leave in leaves
+          if leave["leave_id"]==choice
+        and leave["status"]=="Manager Approval Required"),
+        None
+    )
+
+    if selected_leave is None:
+        print("Invalid Leave ID or request not pending!")
+        return
+
+    selected_leave["status"]="Approved"
+    save_leaves(leaves)
+    print("\nLeave request approved successfully!")
+
+
 def reject_leave():
     pass
 def view_leave_balance():

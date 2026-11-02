@@ -12,5 +12,13 @@
         "employee_name": "kala",
         "leave_days": 9000,
         "status": "Pending"
+    },
+    {
+        "leave_id": "L3",
+        "employee_id": "104",
+        "employee_name": "JOhan",
+        "reason": "Oktoberfest",
+        "leave_days": 7,
+        "status": "Approved"
     }
 ]
