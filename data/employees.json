@@ -1,0 +1,16 @@
+[
+    {
+        "leave_id": "L1",
+        "employee_id": "101",
+        "employee_name": "joe",
+        "leave_days": 3,
+        "status": "Pending"
+    },
+    {
+        "leave_id": "L2",
+        "employee_id": "103",
+        "employee_name": "kala",
+        "leave_days": 9000,
+        "status": "Pending"
+    }
+]
