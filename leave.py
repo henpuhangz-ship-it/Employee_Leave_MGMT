@@ -20,8 +20,27 @@ def save_leaves(leaves):
 
 def apply_leave():
     
-    employee_id = input("Enter Employee ID: ")
-    employee_name = input("Enter Employee Name: ")
+    employee_id = input("Enter Employee ID: ").strip()
+    employee_name = input("Enter Employee Name: ").strip()
+
+    print("\nSelect Leave Type:")
+    print("1. Casual Leave")
+    print("2. Sick Leave")
+    print("3. Earned Leave")
+
+    leave_type_choice = input("Enter choice: ").strip()
+
+    leave_types = {
+        "1": "Casual Leave",
+        "2": "Sick Leave",
+        "3": "Earned Leave"
+    }
+    
+    if leave_type_choice not in leave_types:
+        print("Invalid Leave type!")
+        return
+
+    leave_type = leave_types[leave_type_choice]
 
     try:
         leave_days = int(input("Enter number of leave days: "))
@@ -49,6 +68,7 @@ def apply_leave():
         "leave_id": leave_id,
         "employee_id":employee_id,
         "employee_name": employee_name,
+        "leave_type": leave_type,
         "reason": reason,
         "leave_days": leave_days,
         "status": status
@@ -73,6 +93,7 @@ def view_leaves():
         print("Leave ID: ", leave["leave_id"])
         print("Employee ID:", leave["employee_id"])
         print("Employee Name:", leave["employee_name"])
+        print("Leave Type:", leave.get("leave_type", "Not specified"))
         print("Leave Days:", leave["leave_days"])
         print("Status:", leave["status"])
 
