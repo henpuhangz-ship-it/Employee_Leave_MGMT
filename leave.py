@@ -120,4 +120,29 @@ def approve_leave():
 def reject_leave():
     pass
 def view_leave_balance():
-    pass 
+
+    employee_id = input("Enter Employee ID: ").strip()
+
+    leaves = load_leaves()
+
+    employee_leaves = [
+        leave for leave in leaves
+        if leave["employee_id"] == employee_id
+    ]
+
+    total_leave = 20
+
+    used_leave = sum(
+        leave["leave_days"]
+        for leave in employee_leaves
+        if leave["status"] in ["Approved", "Leave Processed"]
+    )
+
+    remaining_leave = total_leave- used_leave
+
+    print("\n========== LEAVE BALANCE ==========")
+    print("Employee ID:", employee_id)
+    print("Total Leave:", total_leave)
+    print("Used Leave:", used_leave)
+    print("Remaining Leave:", remaining_leave)
+     
